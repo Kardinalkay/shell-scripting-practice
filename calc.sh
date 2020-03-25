@@ -3,7 +3,7 @@
 digit_test () {
 
 	if ! [[ $1 =~ $2 ]] ; then
-	   echo "error: $1 does not look like digit(s). Please try again." >&2; exit 1
+	   echo "Esrror: $1 does not look like digit(s). Please try again." >&2; exit 1
 	fi
 }
 
@@ -228,6 +228,10 @@ while true; do
 			echo "7. Exit"
 
 			read input2
+
+			if [[ $input1 -eq $input2 ]] ; then 
+				echo "Error: You selected the same currencies. Please try again." >&2; exit 1
+			fi
 
 
 
