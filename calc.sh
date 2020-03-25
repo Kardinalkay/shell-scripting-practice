@@ -56,23 +56,33 @@ while true; do
 			echo "5. Square (x**2)"
 			echo "6. Modulus (mod)"
 			echo "7. Power of 10 (10^x)"
+			echo "8. Exit"
 
 			read input2
 
-			echo -e $directive1
-			read dir1
+			# If user doesn't exit program, run other options
 
-			if ! [[ $dir1 =~ $regex_digits ]] ; then
-			   echo "error: $dir1 is not a number" >&2; exit 1
-			fi
+			if [[ $input2 -ne 8 ]] ; then 
 
-			if [ $input2 -ne 5 ] && [ $input2 -ne 7 ]; then 
+				echo -e $directive1
+				read dir1
 
-				echo -e $directive2
-				read dir2
+				if ! [[ $dir1 =~ $regex_digits ]] ; then
+				   echo "error: $dir1 is not a number. Please try again." >&2; exit 1
+				fi
 
-				if ! [[ $dir2 =~ $regex_digits ]] ; then
-				   echo "error: $dir2 is not a number" >&2; exit 1
+				# If user chooses square or power of 10 options (5 or 7), only one parameter is needed,
+				# otherwise 2
+
+				if [ $input2 -ne 5 ] && [ $input2 -ne 7 ]; then 
+
+					echo -e $directive2
+					read dir2
+
+					if ! [[ $dir2 =~ $regex_digits ]] ; then
+					   echo "error: $dir2 is not a number. Please try again." >&2; exit 1
+					fi
+
 				fi
 
 			fi
@@ -122,6 +132,10 @@ while true; do
 					echo $number
 					;;
 
+				"8")
+					echo "Restart please."
+					exit 0
+					;;
 			esac
 
 		;;
@@ -131,8 +145,27 @@ while true; do
 			echo -e "\nEnter greater date without delimiter:\n e.g. 2020/01/01 should be inputted as 20200101"
 			read date1
 
+			if ! [[ $date1 =~ $regex_digits ]] ; then
+			   echo "error: $date1 doesn't look like digits. Please try again." >&2; exit 1
+			fi
+
 			echo -e "\nEnter lesser date without delimiter:\n e.g. 2019/01/01 should be inputted as 20200101"
 			read date2
+
+			if ! [[ $date2 =~ $regex_digits ]] ; then
+			   echo "error: $date2 doesn't look like digits. Please try again." >&2; exit 1
+			fi
+
+			let date_diff = date1 - date2
+
+			# In the event user sets parameters the other way round, ensure result does not come back negative
+			if [[ date_diff < 0 ]] ; then 
+				let "date_diff = -((date_diff))"
+			fi
+
+			echo -e "\nThe difference between date1 and date2 is:"
+
+			echo date_diff
 		;;
 
 	esac
