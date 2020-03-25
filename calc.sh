@@ -46,12 +46,7 @@ while true; do
 		#If user input is basic
 		"1")
 
-			echo -e $directive1
-			read dir1
-			echo -e $directive2
-			read dir2
-
-			echo -e "Enter Choice: \n"
+			echo -e "\nEnter Choice:\n"
 			echo "1. Addition (+)"
 			echo "2. Subtraction (-)"
 			echo "3. Multiplication (*)"
@@ -61,6 +56,15 @@ while true; do
 			echo "7. Power of 10 (10^x)"
 
 			read input2
+			printf "input2: $input2"
+
+			echo -e $directive1
+			read dir1
+
+			if [ $input2 -ne 5 ] && [ $input2 -ne 7 ]; then 
+				echo -e $directive2
+				read dir2
+			fi
 
 			case $input2 in 
 
@@ -83,6 +87,13 @@ while true; do
 					echo -e "\nThe division of $dir1 and $dir2 is:"
 					expr $dir1 / $dir2
 					;;
+
+				"5") 
+					echo -e "\nThe square of $dir1 is:"
+					expr $dir1 '*' $dir1
+					;;
+
+
 
 			esac
 
