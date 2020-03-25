@@ -7,8 +7,8 @@ while true; do
 	echo -e "\nBeloved, you are welcome to use our simple calculator program.\r\nPlease input the corresponding digits for your choice.\r\ne.g. Enter 1 for Basic, 2 for Date, 3 for Currency...\n"
 
 	# Directives
-	directive1="\nPlease provide the first number:\n"
-	directive2="Please provide the second number:\n"
+	directive1="\nPlease provide the first whole number:\n"
+	directive2="Please provide the second whole number:\n"
 
 
 	# Then, display a menu that outlines the possible operations:
@@ -77,6 +77,11 @@ while true; do
 				"3") 
 					echo -e "\nThe multiplication of $dir1 and $dir2 is:"
 					expr $dir1 '*' $dir2
+					;;
+
+				"4") 
+					echo -e "\nThe division of $dir1 and $dir2 is:"
+					expr $dir1 / $dir2
 					;;
 
 			esac
