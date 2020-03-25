@@ -1,5 +1,7 @@
 #! /usr/bin/env bash
 
+regex_digits='^[0-9]+$'
+
 # Ensure to keep prompting user
 while true; do
 
@@ -56,14 +58,23 @@ while true; do
 			echo "7. Power of 10 (10^x)"
 
 			read input2
-			printf "input2: $input2"
 
 			echo -e $directive1
 			read dir1
 
+			if ! [[ $dir1 =~ $regex_digits ]] ; then
+			   echo "error: $dir1 is not a number" >&2; exit 1
+			fi
+
 			if [ $input2 -ne 5 ] && [ $input2 -ne 7 ]; then 
+
 				echo -e $directive2
 				read dir2
+
+				if ! [[ $dir2 =~ $regex_digits ]] ; then
+				   echo "error: $dir2 is not a number" >&2; exit 1
+				fi
+
 			fi
 
 			case $input2 in 
@@ -107,11 +118,21 @@ while true; do
 						((number=number*number))
 						let "i++"
 					done
+
 					echo $number
 					;;
 
 			esac
 
+		;;
+
+		"2")
+
+			echo -e "\nEnter greater date without delimiter:\n e.g. 2020/01/01 should be inputted as 20200101"
+			read date1
+
+			echo -e "\nEnter lesser date without delimiter:\n e.g. 2019/01/01 should be inputted as 20200101"
+			read date2
 		;;
 
 	esac
