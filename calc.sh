@@ -69,7 +69,10 @@ while true; do
 					expr $dir1 + $dir2
 					;;
 
-
+				"2") 
+					echo -e "\nThe subtraction of $dir1 and $dir2 is:"
+					expr $dir1 - $dir2
+					;;
 
 			esac
 
