@@ -178,9 +178,6 @@ while true; do
 			let "date_month_diff = date_month_1 - date_month_2"
 			let "date_day_diff = date_day_1 - date_day_2"
 
-
-
-
 			# In the event user sets parameters the other way round, ensure result does not come back negative
 
 			if [[ $date_yr_diff -lt 0 ]] ; then 
@@ -195,8 +192,7 @@ while true; do
 				((date_day_diff=-1*date_day_diff))
 			fi
 
-			echo "date_yr_diff : $date_yr_diff"
-
+			#If difference in year is 0, skip altogether
 			if [[ $date_yr_diff -eq 0 ]] ; then 
 				date_yr_diff=''
 			else 
@@ -206,6 +202,35 @@ while true; do
 			echo -e "\nThe difference between date1 and date2 is:"
 
 			echo "$date_yr_diff $date_month_diff month(s) $date_day_diff day(s)"
+
+		;;
+
+		"3")
+
+			echo -e "\nConvert From What Currency:\n"
+			echo "1. Naira"
+			echo "2. US Dollar (USD)"
+			echo "3. Canadian Dollar (CAD)"
+			echo "4. Birr"
+			echo "5. Yuan"
+			echo "6. UK Pound"
+			echo "7. Exit"
+
+			read input
+
+			echo -e "\nConvert To What Currency:\n"
+			echo "1. Naira"
+			echo "2. US Dollar (USD)"
+			echo "3. Canadian Dollar (CAD)"
+			echo "4. Birr"
+			echo "5. Yuan"
+			echo "6. UK Pound"
+			echo "7. Exit"
+
+			read input2
+
+
+
 		;;
 
 	esac
