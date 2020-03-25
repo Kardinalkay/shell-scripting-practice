@@ -93,7 +93,10 @@ while true; do
 					expr $dir1 '*' $dir1
 					;;
 
-
+				"6") 
+					echo -e "\nThe modulus of $dir1 and $dir2:"
+					expr $dir1 % $dir2
+					;;
 
 			esac
 
