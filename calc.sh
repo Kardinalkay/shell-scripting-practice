@@ -233,7 +233,30 @@ while true; do
 				echo "Error: You selected the same currencies. Please try again." >&2; exit 1
 			fi
 
+			# Current Exchange Rates
 
+			naira_to_usd="0.0028"
+			naira_to_cad="0.0039"
+			naira_to_birr="0.090"
+			naira_to_yuan="0.020"
+			naira_to_pound="0.0023"
+
+			usd_to_cad="1.42"
+			usd_to_birr="32.72"
+			usd_to_yuan="7.11"
+			usd_to_pound="0.84"
+
+			cad_to_birr="23.04"
+			cad_to_yuan="5.01"
+			cad_to_uk="0.59"
+
+			birr_to_yuan="0.22"
+			birr_to_pound="0.026"
+
+
+		;;
+
+		"4")
 
 		;;
 
