@@ -1,5 +1,15 @@
 #! /usr/bin/env bash
 
+digit_test () {
+
+	user_input = $1
+	regex = $2
+
+	if ! [[ $user_input =~ regex ]] ; then
+	   echo "error: '$1' does not look like digits. Please try again." >&2; exit 1
+	fi
+}
+
 regex_digits='^[0-9]+$'
 
 # Ensure to keep prompting user
@@ -67,9 +77,7 @@ while true; do
 				echo -e $directive1
 				read dir1
 
-				if ! [[ $dir1 =~ $regex_digits ]] ; then
-				   echo "error: $dir1 is not a number. Please try again." >&2; exit 1
-				fi
+				digit_test $dir1 $regex_digits
 
 				# If user chooses square or power of 10 options (5 or 7), only one parameter is needed,
 				# otherwise 2
@@ -79,9 +87,7 @@ while true; do
 					echo -e $directive2
 					read dir2
 
-					if ! [[ $dir2 =~ $regex_digits ]] ; then
-					   echo "error: $dir2 is not a number. Please try again." >&2; exit 1
-					fi
+					digit_test $dir2 $regex_digits
 
 				fi
 
@@ -142,21 +148,42 @@ while true; do
 
 		"2")
 
-			echo -e "\nEnter greater date without delimiter:\n e.g. 2020/01/01 should be inputted as 20200101"
-			read date1
+			# Collect dates from user one segment at a time: collecting year, month and date
+			# This will make the computation easier down the road
 
-			if ! [[ $date1 =~ $regex_digits ]] ; then
-			   echo "error: $date1 doesn't look like digits. Please try again." >&2; exit 1
-			fi
+			echo -e "\We will start with the larger date :).\n"
 
-			echo -e "\nEnter lesser date without delimiter:\n e.g. 2019/01/01 should be inputted as 20200101"
-			read date2
+			echo -e "\nEnter year of larger date please. 'Format: 2020'"
+			read date_yr_1
+			digit_test $date_yr_1 $regex_digits
 
-			if ! [[ $date2 =~ $regex_digits ]] ; then
-			   echo "error: $date2 doesn't look like digits. Please try again." >&2; exit 1
-			fi
+			echo -e "\nEnter month of larger date please. 'Format: 10' "
+			read date_month_1
+			digit_test $date_month_1 $regex_digits
 
-			let date_diff = date1 - date2
+			echo -e "\nEnter day of larger date please. 'Format: 1' "
+			read date_day_1
+			digit_test $date_day_1 $regex_digits
+
+			echo -e "\nEnter year of lesser date please. 'Format: 2019'"
+			read date_yr_2
+			digit_test $date_yr_2 $regex_digits
+
+			echo -e "\nEnter month of lesser date please. 'Format: 10' "
+			read date_month_2
+			digit_test $date_month_2 $regex_digits
+
+			echo -e "\nEnter day of lesser date please. 'Format: 1' "
+			read date_day_2
+			digit_test $date_day_2 $regex_digits
+
+			let "date_yr_diff = date_yr_1 - date_yr_2"
+			let "date_month_diff = date_month_1 - date_month_2"
+			let "date_day_diff = date_day_1 - date_day_2"
+
+
+
+			let "date_diff = date1 - date2"
 
 			# In the event user sets parameters the other way round, ensure result does not come back negative
 			if [[ date_diff < 0 ]] ; then 
@@ -165,7 +192,7 @@ while true; do
 
 			echo -e "\nThe difference between date1 and date2 is:"
 
-			echo date_diff
+			echo $date_diff
 		;;
 
 	esac
