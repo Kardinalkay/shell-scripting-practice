@@ -2,11 +2,8 @@
 
 digit_test () {
 
-	user_input = $1
-	regex = $2
-
-	if ! [[ $user_input =~ regex ]] ; then
-	   echo "error: '$1' does not look like digits. Please try again." >&2; exit 1
+	if ! [[ $1 =~ $2 ]] ; then
+	   echo "error: $1 does not look like digit(s). Please try again." >&2; exit 1
 	fi
 }
 
@@ -151,7 +148,7 @@ while true; do
 			# Collect dates from user one segment at a time: collecting year, month and date
 			# This will make the computation easier down the road
 
-			echo -e "\We will start with the larger date :).\n"
+			echo -e "\nWe will start with the larger date :).\n"
 
 			echo -e "\nEnter year of larger date please. 'Format: 2020'"
 			read date_yr_1
@@ -183,16 +180,32 @@ while true; do
 
 
 
-			let "date_diff = date1 - date2"
 
 			# In the event user sets parameters the other way round, ensure result does not come back negative
-			if [[ date_diff < 0 ]] ; then 
-				let "date_diff = -((date_diff))"
+
+			if [[ $date_yr_diff -lt 0 ]] ; then 
+				((date_yr_diff=-1*date_yr_diff))
+			fi
+
+			if [[ $date_month_diff -lt '0' ]] ; then 
+				((date_month_diff=-1*date_month_diff))
+			fi
+
+			if [[ $date_day_diff -lt '0' ]] ; then 
+				((date_day_diff=-1*date_day_diff))
+			fi
+
+			echo "date_yr_diff : $date_yr_diff"
+
+			if [[ $date_yr_diff -eq 0 ]] ; then 
+				date_yr_diff=''
+			else 
+				date_yr_diff="$date_yr_diff year(s)"
 			fi
 
 			echo -e "\nThe difference between date1 and date2 is:"
 
-			echo $date_diff
+			echo "$date_yr_diff $date_month_diff month(s) $date_day_diff day(s)"
 		;;
 
 	esac
