@@ -98,6 +98,18 @@ while true; do
 					expr $dir1 % $dir2
 					;;
 
+				"7") 
+					echo -e "\nThe power of 10 raised to power $dir1:"
+					number=10
+					i=1
+
+					while [[ $i -lt $dir1 ]]; do 
+						((number=number*number))
+						let "i++"
+					done
+					echo $number
+					;;
+
 			esac
 
 		;;
