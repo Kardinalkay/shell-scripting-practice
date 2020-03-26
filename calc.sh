@@ -3,7 +3,7 @@
 digit_test () {
 
 	if ! [[ $1 =~ $2 ]] ; then
-	   echo "Esrror: $1 does not look like digit(s). Please try again." >&2; exit 1
+	   echo "Error: $1 does not look like digit(s). Please try again." >&2; exit 1
 	fi
 }
 
@@ -52,7 +52,7 @@ while true; do
 
 	case $input in 
 
-		#If user input is basic
+		# If user input is Basic
 		"1")
 
 			echo -e "\nEnter Choice:\n"
@@ -125,11 +125,15 @@ while true; do
 				"7") 
 					echo -e "\nThe power of 10 raised to power $dir1:"
 					number=10
-					i=1
+					i=0
 
 					while [[ $i -lt $dir1 ]]; do 
-						((number=number*number))
-						let "i++"
+						if [[ $i -gt 0 ]]; then 
+							((number=$number*10))
+						fi
+						# let "i++"
+						# echo -e "i after increment = $i\n"
+						# echo "number = $number"
 					done
 
 					echo $number
@@ -142,6 +146,8 @@ while true; do
 			esac
 
 		;;
+
+		# If user input is Calculator
 
 		"2")
 
@@ -205,6 +211,8 @@ while true; do
 
 		;;
 
+		# If user input is Currency
+
 		"3")
 
 			echo -e "\nConvert From What Currency:\n"
@@ -216,7 +224,9 @@ while true; do
 			echo "6. UK Pound"
 			echo "7. Exit"
 
-			read input
+			read input1
+
+			echo -e "\nYou chose: $input1\n"
 
 			echo -e "\nConvert To What Currency:\n"
 			echo "1. Naira"
@@ -229,30 +239,64 @@ while true; do
 
 			read input2
 
+			echo -e "\nYou chose: $input2\n"
+
+
 			if [[ $input1 -eq $input2 ]] ; then 
-				echo "Error: You selected the same currencies. Please try again." >&2; exit 1
+				echo -e "Error: You selected the same currency. Please try again." >&2; exit 1
 			fi
+
+			echo -e "\nEnter value: \n"
+			read value
 
 			# Current Exchange Rates
 
-			naira_to_usd="0.0028"
-			naira_to_cad="0.0039"
-			naira_to_birr="0.090"
-			naira_to_yuan="0.020"
-			naira_to_pound="0.0023"
+			naira_to_usd=0.0028
+			naira_to_cad=0.0039
+			naira_to_birr=0.090
+			naira_to_yuan=0.020
+			naira_to_pound=0.0023
 
-			usd_to_cad="1.42"
-			usd_to_birr="32.72"
-			usd_to_yuan="7.11"
-			usd_to_pound="0.84"
+			usd_to_cad=1.42
+			usd_to_birr=32.72
+			usd_to_yuan=7.11
+			usd_to_pound=0.84
 
-			cad_to_birr="23.04"
-			cad_to_yuan="5.01"
-			cad_to_uk="0.59"
+			cad_to_birr=23.04
+			cad_to_yuan=5.01
+			cad_to_pound=0.59
 
-			birr_to_yuan="0.22"
-			birr_to_pound="0.026"
+			birr_to_yuan=0.22
+			birr_to_pound=0.026
 
+			echo "input1: $input1"
+			echo "input2: $input2"
+			echo "value: $value"
+
+			case $input1 in 				
+
+				"1") 
+
+					if [[ $input2 -eq 2 ]] ; then 
+
+						echo -e "Converting $value Naira to US Dollars:\r\n"
+
+						echo -e "$value naira equals "
+
+						b=$(echo "$value / $naira_to_usd"|bc)
+						echo $b
+						#expr $value / $naira_to_usd 
+
+					fi
+
+					
+				;;
+
+				"2") 
+
+				;;
+
+			esac
 
 		;;
 
